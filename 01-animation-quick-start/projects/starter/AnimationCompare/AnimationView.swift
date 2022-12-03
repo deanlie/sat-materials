@@ -47,6 +47,7 @@ struct AnimationView: View {
       return Animation.linear(duration: animation.length)
     }
   }
+  var slowMotion = false
 
   var body: some View {
     GeometryReader { proxy in
@@ -63,7 +64,9 @@ struct AnimationView: View {
         // 3
         .animation(
           // 4
-          currentAnimation,
+          currentAnimation
+            .delay(animation.delay)
+            .speed(slowMotion ? 0.25 : 1.0),
           // 5
           value: location
         )
