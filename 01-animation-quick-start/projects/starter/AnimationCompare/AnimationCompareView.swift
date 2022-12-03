@@ -47,6 +47,13 @@ struct AnimationCompareView: View {
   var body: some View {
     NavigationStack {
       VStack {
+        // 1
+        Button("Animate!") {
+          // 2
+          location = location == 0 ? 1 : 0
+        }
+        .font(.title)
+        .disabled(animations.isEmpty)
         List {
           ForEach($animations) { $animation in
             NavigationLink {

@@ -35,11 +35,38 @@ import SwiftUI
 struct AnimationView: View {
   var animation: AnimationData
   @Binding var location: Double
+  var currentAnimation: Animation {
+    switch animation.type {
+    case .easeIn:
+      return Animation.easeIn(duration: animation.length)
+    case .easeOut:
+      return Animation.easeOut(duration: animation.length)
+    case .easeInOut:
+      return Animation.easeInOut(duration: animation.length)
+    default:
+      return Animation.linear(duration: animation.length)
+    }
+  }
 
   var body: some View {
     GeometryReader { proxy in
       Group {
-        Text("Animation")
+        HStack {
+          // 1
+          Image(systemName: "gear.circle")
+            .rotationEffect(.degrees(360 * location))
+          Image(systemName: "star.fill")
+          // 2
+            .offset(x: proxy.size.width * location * 0.8)
+        }
+        .font(.title)
+        // 3
+        .animation(
+          // 4
+          currentAnimation,
+          // 5
+          value: location
+        )
       }
     }
   }
