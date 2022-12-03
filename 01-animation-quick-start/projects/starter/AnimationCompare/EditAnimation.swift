@@ -86,8 +86,8 @@ struct EditAnimation: View {
           Stepper(
             "Stiffness \(animation.stiffness.formatted())",
             value: $animation.stiffness,
-            in: 0...10,
-            step: 0.1
+            in: 0...200,
+            step: 10
           )
           Stepper(
             "Damping \(animation.damping.formatted())",
