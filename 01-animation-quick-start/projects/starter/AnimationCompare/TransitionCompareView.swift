@@ -34,6 +34,18 @@ import SwiftUI
 
 struct TransitionCompareView: View {
   @State var showSquare = true
+  // 1
+  var squareTransition: AnyTransition {
+    // 2
+    let insertTransition = AnyTransition.scale(scale: 0.2, anchor: .leading)
+    // let insertTransition = AnyTransition.move(edge: .leading)
+    let removeTransition = AnyTransition.scale(scale: 0.2, anchor: .trailing)
+    // 3
+    return AnyTransition.asymmetric(
+      insertion: insertTransition,
+      removal: removeTransition
+    )
+  }
 
   var body: some View {
     VStack {
@@ -50,7 +62,8 @@ struct TransitionCompareView: View {
           //.transition(.opacity)
           //.transition(.offset(x:10, y: 40))
           //.transition(.move(edge: .trailing))
-          .transition(.slide)
+          //.transition(.slide)
+          .transition(squareTransition)
       }
       Spacer()
     }
