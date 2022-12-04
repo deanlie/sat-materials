@@ -38,12 +38,19 @@ struct TransitionCompareView: View {
   var body: some View {
     VStack {
       Button(showSquare ? "Hide the Square" : "Show the Square") {
-        showSquare.toggle()
+        withAnimation {
+          showSquare.toggle()
+        }
       }
       if showSquare {
         RoundedRectangle(cornerRadius: 15)
           .frame(width: 150, height: 150)
           .foregroundColor(.red)
+          //.transition(.scale(scale: 0.2, anchor: .trailing))
+          //.transition(.opacity)
+          //.transition(.offset(x:10, y: 40))
+          //.transition(.move(edge: .trailing))
+          .transition(.slide)
       }
       Spacer()
     }
