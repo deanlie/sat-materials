@@ -54,38 +54,47 @@ struct TransitionView: View {
   }
   var currentRemoveTrx: AnyTransition {
     if transition.isSymmetric {
+      // RED_FLAG insertion vs removal params??
       return currentInsertTrx
     } else {
       switch transition.removalType {
-      default:
+      case .slide:
+        return AnyTransition.slide
+      case .offset:
+        return AnyTransition.offset(x: transition.x,
+                                    y: transition.y)
+      case .scale:
+        return AnyTransition.scale(scale: transition.scale,
+                                   anchor: .topTrailing) // RED_FLAG
+      case .opacity:
         return AnyTransition.opacity
+      case .move:
+        return AnyTransition.move(edge: transition.edge)
       }
     }
   }
   
   var currentTransition: AnyTransition {
-    return AnyTransition.asymmetric(insertion: currentInsertTrx, removal: currentRemoveTrx)
+    return AnyTransition.asymmetric(
+      insertion: AnyTransition.scale(scale: 0.4,
+                                     anchor: .bottomTrailing),
+      removal: AnyTransition.scale(scale: 0.2,
+                                   anchor: .topLeading))
   }
 
   var body: some View {
-    VStack {
-      HStack {
+    GeometryReader { proxy in
+      Group {
         if showTheView {
-          VStack {
-            RoundedRectangle(cornerRadius: 15)
-              .frame(width: 150, height: 150)
-              .foregroundColor(.red)
-              .transition(currentTransition)
-          }
+          RoundedRectangle(cornerRadius: 15)
+            .frame(width: 150, height: 150)
+            .foregroundColor(.red)
+            .transition(currentTransition)
         }
       }
-      .frame(width: 160, height: 160)
     }
+    .frame(width: 160, height: 160)
   }
-}
-
-var fogTransition: AnyTransition {
-  return AnyTransition.opacity
 }
 
 struct TransitionView_Previews: PreviewProvider {

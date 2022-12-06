@@ -34,6 +34,7 @@ import SwiftUI
 
 struct EditTransition: View {
   @Binding var transition: TransitionData
+  @State var showTheView = true
 
   var firstTypeString: String {
     if transition.isSymmetric {
@@ -56,30 +57,26 @@ struct EditTransition: View {
           Text("Move").tag(TransitionType.move)
         }
       }
-      if transition.insertionType == .move {
-        Section("Move Parameters") {
+      Section("\(firstTypeString) Parameters") {
+        if transition.insertionType == .move {
           Picker("Edge", selection: $transition.edge) {
             Text("Leading").tag(Edge.leading)
             Text("Top").tag(Edge.top)
             Text("Trailing").tag(Edge.trailing)
             Text("Bottom").tag(Edge.bottom)
           }
-        }
-      } else if transition.insertionType == .scale {
-        Section("Scale Parameters") {
+        } else if transition.insertionType == .scale {
           Stepper("Scale \(transition.scale.formatted())",
                   value: $transition.scale,
                   in: 0...2,
                   step: 0.1)
-/*          Picker("Anchor", selection: $transition.anchor) {
-            Text("Top Leading").tag(TransitionType.Anchor.topLeading)
-            Text("Top").tag(Anchor.top)
-            Text("TopTrailing").tag(Anchor.topTrailing)
-            // RED_FLAG there's more
-          } */
-        }
-      } else if transition.insertionType == .offset {
-        Section("Offset Parameters") {
+          /*          Picker("Anchor", selection: $transition.anchor) {
+           Text("Top Leading").tag(TransitionType.Anchor.topLeading)
+           Text("Top").tag(Anchor.top)
+           Text("TopTrailing").tag(Anchor.topTrailing)
+           // RED_FLAG there's more
+           } */
+        } else if transition.insertionType == .offset {
           Stepper("X \(transition.x.formatted())",
                   value: $transition.x,
                   in: 0...200,
@@ -91,7 +88,25 @@ struct EditTransition: View {
         }
         // RED_FLAG there's more
       }
+      Section("Description") {
+        Text(transition.description)
+      }
+      Section("Tap to Preview") {
+        TransitionView(transition: transition,
+                       showTheView: $showTheView)
+        .contentShape(Rectangle())
+        .onTapGesture {
+          if showTheView {
+            showTheView = false
+          } else {
+            showTheView = true
+          }
+        }
+      }
+      .textFieldStyle(.roundedBorder)
     }
+    .navigationTitle("Edit Transition")
+    .navigationBarTitleDisplayMode(.inline)
   }
 }
 

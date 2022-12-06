@@ -56,9 +56,6 @@ struct TransitionCompareView: View {
       removal: removeTransition
     )
   }
-  var fogTransition: AnyTransition {
-    return AnyTransition.opacity
-  }
 
   var body: some View {
     NavigationStack {

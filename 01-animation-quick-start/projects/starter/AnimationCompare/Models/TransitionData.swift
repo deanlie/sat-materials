@@ -34,8 +34,8 @@ import SwiftUI
 
 struct TransitionData: Identifiable {
   var id = UUID()
-  var insertionType: TransitionType = .opacity
-  var removalType: TransitionType = .opacity
+  var insertionType: TransitionType = .slide
+  var removalType: TransitionType = .slide
   var isSymmetric = true
 
   // Slide -- no parameters
@@ -45,15 +45,9 @@ struct TransitionData: Identifiable {
   // Move
   var edge: Edge = .leading
   // Offset
-  var x: Double = 0.5
-  var y: Double = 0.5
+  var x: Double = 0.75
+  var y: Double = 0.25
   // Opacity -- no parameters
-
-  let sampleSlide = AnyTransition.slide
-  let sampleScale = AnyTransition.scale(scale: 0.2, anchor: UnitPoint.center)
-  let sampleMove = AnyTransition.move(edge: Edge.leading)
-  let sampleOffset = AnyTransition.offset(x: 0.5, y: 0.5)
-  let sampleOpacity = AnyTransition.opacity
 
   var transitionScaleFormatter:
   NumberFormatter {
@@ -64,8 +58,8 @@ struct TransitionData: Identifiable {
   }
   
   var description: String {
-    var insertionTypeString = "Opacity"
-    var removalTypeString = "Opacity"
+    var insertionTypeString = "??"
+    var removalTypeString = "??"
 
     switch insertionType {
     case .slide:
