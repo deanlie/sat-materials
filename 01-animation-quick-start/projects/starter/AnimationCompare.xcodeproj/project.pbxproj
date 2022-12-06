@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		152289E5293C405E00BB9529 /* EditTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152289E4293C405E00BB9529 /* EditTransition.swift */; };
+		152289E7293DA74400BB9529 /* TransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152289E6293DA74400BB9529 /* TransitionView.swift */; };
 		1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839F4AF25190F2A00BB00F1 /* AppMain.swift */; };
 		18D775C522AD944300AE281E /* AnimationCompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D775C422AD944300AE281E /* AnimationCompareView.swift */; };
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		152289E4293C405E00BB9529 /* EditTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransition.swift; sourceTree = "<group>"; };
+		152289E6293DA74400BB9529 /* TransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionView.swift; sourceTree = "<group>"; };
 		1839F4AF25190F2A00BB00F1 /* AppMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMain.swift; sourceTree = "<group>"; };
 		18D775BD22AD944300AE281E /* AnimationCompare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimationCompare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D775C422AD944300AE281E /* AnimationCompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationCompareView.swift; sourceTree = "<group>"; };
@@ -74,7 +78,9 @@
 				18D775C422AD944300AE281E /* AnimationCompareView.swift */,
 				A995CE38284D57620050077D /* AnimationView.swift */,
 				A9501C56284BE8910039B286 /* EditAnimation.swift */,
+				152289E4293C405E00BB9529 /* EditTransition.swift */,
 				A995CE3C284D641D0050077D /* TransitionCompareView.swift */,
+				152289E6293DA74400BB9529 /* TransitionView.swift */,
 				18D775C622AD944400AE281E /* Assets.xcassets */,
 				18D775DA22AD963800AE281E /* LaunchScreen.storyboard */,
 				18D775CE22AD944400AE281E /* Info.plist */,
@@ -196,7 +202,9 @@
 				A9501C5A284BE8A50039B286 /* AnimationData.swift in Sources */,
 				A995CE39284D57620050077D /* AnimationView.swift in Sources */,
 				A995CE3D284D641E0050077D /* TransitionCompareView.swift in Sources */,
+				152289E7293DA74400BB9529 /* TransitionView.swift in Sources */,
 				A995CE3B284D63440050077D /* ContentView.swift in Sources */,
+				152289E5293C405E00BB9529 /* EditTransition.swift in Sources */,
 				A920D3762872260C001E2D0A /* TransitionData.swift in Sources */,
 				18D775C522AD944300AE281E /* AnimationCompareView.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,

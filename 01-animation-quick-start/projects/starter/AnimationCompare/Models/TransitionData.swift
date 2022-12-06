@@ -32,6 +32,88 @@
 
 import SwiftUI
 
+struct TransitionData: Identifiable {
+  var id = UUID()
+  var insertionType: TransitionType = .opacity
+  var removalType: TransitionType = .opacity
+  var isSymmetric = true
+
+  // Slide -- no parameters
+  // Scale
+  var scale: Double = 1.0
+  var anchor: UnitPoint = .center
+  // Move
+  var edge: Edge = .leading
+  // Offset
+  var x: Double = 0.5
+  var y: Double = 0.5
+  // Opacity -- no parameters
+
+  let sampleSlide = AnyTransition.slide
+  let sampleScale = AnyTransition.scale(scale: 0.2, anchor: UnitPoint.center)
+  let sampleMove = AnyTransition.move(edge: Edge.leading)
+  let sampleOffset = AnyTransition.offset(x: 0.5, y: 0.5)
+  let sampleOpacity = AnyTransition.opacity
+
+  var transitionScaleFormatter:
+  NumberFormatter {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.minimumFractionDigits = 1
+    return formatter
+  }
+  
+  var description: String {
+    var insertionTypeString = "Opacity"
+    var removalTypeString = "Opacity"
+
+    switch insertionType {
+    case .slide:
+      insertionTypeString = "Slide"
+    case .scale:
+      insertionTypeString = "Scale"
+    case .move:
+      insertionTypeString = "Move"
+    case .offset:
+      insertionTypeString = "Offset"
+    case .opacity:
+      insertionTypeString = "Opacity"
+    }
+    if isSymmetric {
+      removalTypeString = insertionTypeString
+    } else {
+      switch removalType {
+      case .slide:
+        removalTypeString = "Slide"
+      case .scale:
+        removalTypeString = "Scale"
+      case .move:
+        removalTypeString = "Move"
+      case .offset:
+        removalTypeString = "Offset"
+      case .opacity:
+        removalTypeString = "Opacity"
+      }
+    }
+    let scaleString = transitionScaleFormatter.string(for: scale) ?? "??"
+    let offsetXString = transitionScaleFormatter.string(for: x) ?? "??"
+    let offsetYString = transitionScaleFormatter.string(for: y) ?? "??"
+
+    if isSymmetric {
+      return "\(insertionTypeString) Transition"
+    } else {
+      return("Asymmetric Transition,\n  Insertion: \(insertionTypeString)\n  Removal: \(removalTypeString)")
+    }
+/*    if type == .slide {
+      return "\(typeString) Transition\n"
+    }
+    if type == .scale {
+      return "\(typeString) Transition\nScale: \(scaleString)"
+    }
+    return "\(typeString) Transition\n Parameters not implemented" */
+  }
+}
+
 enum TransitionType {
   case slide
   case scale

@@ -33,39 +33,76 @@
 import SwiftUI
 
 struct TransitionCompareView: View {
-  @State var showSquare = true
+  @State var transitions: [TransitionData] = []
+  @State var showSquares = true
+
+  func deleteTransitions(at offsets: IndexSet) {
+    transitions.remove(atOffsets: offsets)
+  }
+
+  func moveTransitions(source: IndexSet, destination: Int) {
+    transitions.move(fromOffsets: source, toOffset: destination)
+  }
   // 1
   var squareTransition: AnyTransition {
     // 2
     let insertTransition = AnyTransition.scale(scale: 0.2, anchor: .leading)
     // let insertTransition = AnyTransition.move(edge: .leading)
     let removeTransition = AnyTransition.scale(scale: 0.2, anchor: .trailing)
+    
     // 3
     return AnyTransition.asymmetric(
       insertion: insertTransition,
       removal: removeTransition
     )
   }
+  var fogTransition: AnyTransition {
+    return AnyTransition.opacity
+  }
 
   var body: some View {
-    VStack {
-      Button(showSquare ? "Hide the Square" : "Show the Square") {
-        withAnimation {
-          showSquare.toggle()
+    NavigationStack {
+      VStack {
+        Button("Transition!") {
+          withAnimation {
+            showSquares.toggle()
+          }
         }
+        .font(.title)
+        .disabled(transitions.isEmpty)
+        List {
+          ForEach($transitions) { $transition in
+            NavigationLink {
+              EditTransition(transition: $transition)
+            } label: {
+              VStack(alignment: .leading) {
+                Text(transition.description)
+                  .fixedSize(horizontal: true, vertical: true)
+                TransitionView(
+                  transition: transition,
+                  showTheView: $showSquares
+                )
+                .frame(height: 160)
+              }
+            }
+          }
+          .onDelete(perform: deleteTransitions)
+          .onMove(perform: moveTransitions)
+          Button {
+            let newTransition = TransitionData()
+            transitions.append(newTransition)
+          } label: {
+            Label(
+              "Add Transition",
+              systemImage: "plus"
+            ).font(.title2)
+          }
+        }
+        .toolbar {
+          EditButton()
+        }
+        .navigationBarTitle("Transition Compare")
       }
-      if showSquare {
-        RoundedRectangle(cornerRadius: 15)
-          .frame(width: 150, height: 150)
-          .foregroundColor(.red)
-          //.transition(.scale(scale: 0.2, anchor: .trailing))
-          //.transition(.opacity)
-          //.transition(.offset(x:10, y: 40))
-          //.transition(.move(edge: .trailing))
-          //.transition(.slide)
-          .transition(squareTransition)
-      }
-      Spacer()
     }
   }
 }
